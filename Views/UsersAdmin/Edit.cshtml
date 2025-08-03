@@ -1,0 +1,181 @@
+﻿@model MASERP.Models.EditUserViewModel
+@{
+    ViewBag.Title = "Edit user info";
+}
+
+
+<head>
+    <link href="~/Content/jquery-confirm.min.css" rel="stylesheet" />
+
+    <style>
+        #form_bg {
+            background-color: #c1c1c1;
+            color: #000000;
+            padding: 25px;
+            border-radius: 15px;
+        }
+    </style>
+        
+</head>
+
+<hr />
+<div class="">
+    <div class="col-sm-8 offset-sm-2" id="form_bg">
+        <div style="border:1px solid #e0e0e0;border-radius:15px;padding:25px;">
+            @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Edit user</h4>
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-error" })
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName,"First Name", new { @class = "" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName,"Last Name", new { @class = "" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BranchCode,"Branch Code", new { @class = "" })
+                            <div class="">
+                                @Html.DropDownListFor(m => m.BranchCode, (IEnumerable<SelectListItem>)ViewBag.branchcode, new { @class = "selected js-example-basic-single" })                              
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AreaCode,"Area Code", new { @class = "" })
+                            <select class="selected js-example-basic-single" id="AreaCode" name="AreaCode">
+                                <option value="">Select Field</option>
+                                @foreach (var item in ViewData["areacode"] as List<OnlineBankSoftware.Models.MAINDATABASE.Area>)
+                                {
+                                    if (Model != null)
+                                    {
+                                        if (Model.BranchCode == item.BranchCode)
+                                        {
+                                            <option value="@item.AreaCode" selected="selected">@item.AreaName </option>
+                                        }
+                                        <option value="@item.AreaCode">@item.AreaCode</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.AreaCode">@item.AreaCode</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>                       
+
+                </div>
+
+               
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email,"Email", new { @class = "" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr />
+
+                <div class="form-group">
+                    @Html.Label("Roles", new { @class = "control-label col-md-2" })
+                    <span class="col-md-10">
+                        @foreach (var item in Model.RolesList)
+                        {
+                            <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                            @Html.Label(item.Value, new { @class = "control-label" })
+                        }
+                    </span>
+                </div>
+
+
+                <hr />
+                <div class="form-group">
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save Changes" />
+                        <a class="btn btn-danger" href="@Url.Action("Index","UsersAdmin")"> Cancel</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+
+    <script>
+
+        Date.prototype.toDateInputValue = (function () {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0, 10);
+        });
+
+        $(document).ready(function () {
+            // $('#PDate').val(new Date().toDateInputValue());
+           // loadData();
+           // selectpicker();
+        });
+
+      
+        var districts = location.protocol + '//' + location.host + "/CalApi/GetAreabyBranch?BranchCode=";
+        $('#BranchCode').on('change', function () {
+            var div = $(this).find(":selected").val();
+            if (div == '' || div == null) {
+                $("#AreaCode").empty();
+                $("#AreaName").empty();               
+            }
+            getDistricts(div);
+        });
+
+
+        function getDistricts(div) {
+            var url = districts + div;
+            $.get(url, function (d) {
+                var jsonData = JSON.stringify(d);
+                $("#AreaCode").empty();
+                $("#AreaCode").append("<option value='' >Field Selected</option>");
+                $.each(JSON.parse(jsonData), function (key, value) {
+                    $("#AreaCode").append("<option value='" + value.AreaCode + "' >" + value.AreaName + "</option>");
+                });
+                $("#AreaCode").selected('refresh');
+                $('#AreaCode').change();
+            });
+        }
+
+    </script>
+}

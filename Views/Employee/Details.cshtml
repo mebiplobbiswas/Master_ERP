@@ -1,0 +1,119 @@
+﻿@model MASERP.Models.DATAMODEL.Employee
+@{
+    ViewBag.Title = "Employee Details";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Change if needed
+    ViewBag.page = "supplier";
+}
+
+<style>
+    .badge {
+        padding: 5px 10px;
+        font-size: 0.85em;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-body">
+            <div class="row">
+                <!-- Profile Image -->
+                <div class="col-md-3 text-center">
+                    <img src="@Url.Content(Model.ImagePath ?? "~/Content/img/default.png")"
+                         class="img-thumbnail rounded-circle mb-2" style="width: 180px; height: 180px;" />
+                    <h4 class="mt-2">@Model.Name</h4>
+                    <p class="text-muted">@Model.Designation</p>
+                </div>
+
+                <!-- Personal Info -->
+                <div class="col-md-9">
+                    <h5 class="border-bottom pb-2">Personal Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Employee Code:</strong> @Model.EmployeeCode</p>
+                            <p><strong>Joining Date:</strong> @Model.JoiningDate.ToString("dd-MMM-yyyy")</p>
+                            <p><strong>Gender:</strong> @Model.Gender</p>
+                            <p><strong>Blood Group:</strong> @Model.BloodGroup</p>
+                            <p><strong>Date of Birth:</strong> @Model.DateOfBirth.Value.ToString("dd-MMM-yyyy")</p>
+                            <p><strong>Marital Status:</strong> @Model.MaritalStatus</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Contact Number:</strong> @Model.ContactNumber</p>
+                            <p><strong>Email:</strong> @Model.Email</p>
+                            <p><strong>National ID:</strong> @Model.NationalId</p>
+                            <p><strong>Emergency Contact:</strong> @Model.EmergencyContact</p>
+                            <p><strong>Work Shifting:</strong> @Model.WorkShifting</p>
+                            <p><strong>Employment Type:</strong> @Model.EmploymentType</p>
+                        </div>
+                    </div>
+
+                    <h5 class="border-bottom pb-2 mt-4">Address & Employment</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Present Address:</strong> @Model.PresentAddress</p>
+                            <p><strong>Department:</strong> @Model.Department</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Permanent Address:</strong> @Model.PermanentAddress</p>
+                            <p><strong>Supervisor:</strong> @Model.Supervisor</p>
+                        </div>
+                    </div>
+
+                    <p class="mt-3">
+                        <strong>Status:</strong>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Inactive</span>
+                        }
+                    </p>
+                </div>
+            </div>
+
+            @if (Model.Educations != null && Model.Educations.Any())
+            {
+                <hr />
+                <h5 class="mt-4">Educational Qualifications</h5>
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Exam Name</th>
+                            <th>Institution</th>
+                            <th>Board</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var edu in Model.Educations)
+                        {
+                            <tr>
+                                <td>@edu.Degree</td>
+                                <td>@edu.Institute</td>
+                                <td>@edu.PassingYear</td>
+                                <td>@edu.Result</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <div class="mt-4">
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-sm">Back to List</a>
+                <a href="@Url.Action("Edit", new { id = Model.EmployeeId })" class="btn btn-primary btn-sm">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>

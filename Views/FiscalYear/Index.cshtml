@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.FiscalYear>
+
+@{
+    ViewBag.Title = "Fiscal Years";
+}
+
+<h2>Fiscal Years</h2>
+
+<p>
+    @Html.ActionLink("Create New Fiscal Year", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.YearName)</th>
+            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th>@Html.DisplayNameFor(model => model.IsActive)</th>
+            <th>@Html.DisplayNameFor(model => model.IsClosed)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.YearName</td>
+                <td>@item.StartDate.ToShortDateString()</td>
+                <td>@item.EndDate.ToShortDateString()</td>
+                <td>@(item.IsActive ? "Yes" : "No")</td>
+                <td>@(item.IsClosed ? "Yes" : "No")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FiscalYearId }, new { @class = "btn btn-sm btn-warning mr-1" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.FiscalYearId }, new { @class = "btn btn-sm btn-info mr-1" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FiscalYearId }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

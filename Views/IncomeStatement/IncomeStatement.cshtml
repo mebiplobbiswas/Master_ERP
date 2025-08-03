@@ -1,0 +1,30 @@
+﻿@model MASERP.Models.DATAMODEL.ViewModel.IncomeStatementViewModel
+<h2>Income Statement</h2>
+
+<form method="get">
+    <label>From</label>
+    <input type="date" name="fromDate" value="@Model.FromDate.ToString("yyyy-MM-dd")" />
+    <label>To</label>
+    <input type="date" name="toDate" value="@Model.ToDate.ToString("yyyy-MM-dd")" />
+    <button type="submit" class="btn btn-success">Filter</button>
+</form>
+
+<h4 class="mt-3 text-primary">Revenue</h4>
+<table class="table table-bordered">
+    @foreach (var r in Model.Revenues)
+    {
+        <tr><td>@r.HeadName</td><td>@r.Amount.ToString("N2")</td></tr>
+    }
+    <tr class="bg-light"><th>Total Revenue</th><th>@Model.TotalRevenue.ToString("N2")</th></tr>
+</table>
+
+<h4 class="text-danger">Expenses</h4>
+<table class="table table-bordered">
+    @foreach (var e in Model.Expenses)
+    {
+        <tr><td>@e.HeadName</td><td>@e.Amount.ToString("N2")</td></tr>
+    }
+    <tr class="bg-light"><th>Total Expenses</th><th>@Model.TotalExpense.ToString("N2")</th></tr>
+</table>
+
+<h3 class="text-success">Net Profit: ৳@Model.NetProfit.ToString("N2")</h3>

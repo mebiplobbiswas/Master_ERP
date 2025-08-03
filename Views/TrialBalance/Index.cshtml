@@ -1,0 +1,104 @@
+﻿@model MASERP.Models.ViewModels.TrialBalanceVM
+@{
+    ViewBag.Title = "Trial Balance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card .table td, .card .table th
+    Specificity: (0,2,1) {
+        color: #dee2e6;
+    }
+</style>
+
+<div class="card shadow-lg border-0 mb-5">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center py-3 px-4">
+        <h4 class="mb-0"><i class="fas fa-balance-scale"></i> Trial Balance Report</h4>
+        <div>
+            @*<a class="btn btn-outline-light btn-sm me-2" href="#"><i class="fas fa-file-pdf"></i> Export PDF</a>
+        <a class="btn btn-outline-light btn-sm" href="#"><i class="fas fa-file-excel"></i> Export Excel</a>*@
+            <a class="btn btn-outline-light btn-sm me-2"
+               href="@Url.Action("ExportToPDF", "TrialBalance", new { fromDate = Model.FromDate?.ToString("yyyy-MM-dd"), toDate = Model.ToDate?.ToString("yyyy-MM-dd"), fiscalYearId = Model.FiscalYearId })">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </a>
+
+            <a class="btn btn-outline-light btn-sm"
+               href="@Url.Action("ExportToExcel", "TrialBalance", new { fromDate = Model.FromDate?.ToString("yyyy-MM-dd"), toDate = Model.ToDate?.ToString("yyyy-MM-dd"), fiscalYearId = Model.FiscalYearId })">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </a>
+        </div>
+    </div>
+       
+
+
+    <div class="card-body p-4">
+        @using (Html.BeginForm("Index", "TrialBalance", FormMethod.Post, new { @class = "row g-3 mb-4" }))
+        {
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.FromDate, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.FromDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.ToDate, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.ToDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.FiscalYearId, new { @class = "form-label" })
+                @Html.DropDownList("FiscalYearId", null, "-- Select Year --", new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        }
+
+        @if (Model.AccountBalances != null && Model.AccountBalances.Any())
+        {
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered table-striped table-hover align-middle">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th style="width: 5%; color: #dee2e6;" class="text-center">SL</th>
+                            <th class="text-left" style="color: #dee2e6;">Account Head</th>
+                            <th class="text-right" style="color: #dee2e6;">Debit (৳)</th>
+                            <th class="text-right" style="color: #dee2e6;">Credit (৳)</th>
+                            <th class="text-right" style="color: #dee2e6;">Balance (৳)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                            foreach (var item in Model.AccountBalances)
+                            {
+                                <tr>
+                                    <td class="text-center">@i</td>
+                                    <td>@item.AccountHeadName</td>
+                                    <td class="text-end text-primary text-right">@item.DebitTotal.ToString("N2")</td>
+                                    <td class="text-end text-danger text-right">@item.CreditTotal.ToString("N2")</td>
+                                    <td class="text-end fw-bold @(item.Balance >= 0 ? "text-success" : "text-warning") text-right">
+                                        @(item.Balance >= 0 ? "+" : "-") @Math.Abs(item.Balance).ToString("N2")
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                    <tfoot class="bg-light text-end fw-bold">
+                        <tr>
+                            <td colspan="2" class="text-right"><strong>Total</strong></td>
+                            <td class="text-primary text-right"><strong>৳ @Model.AccountBalances.Sum(x => x.DebitTotal).ToString("N2")</strong></td>
+                            <td class="text-danger text-right"><strong>৳ @Model.AccountBalances.Sum(x => x.CreditTotal).ToString("N2")</strong></td>
+                            <td class="text-success text-right"><strong>৳ @Model.AccountBalances.Sum(x => x.Balance).ToString("N2")</strong></td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        }
+        else if (Model.FromDate != null && Model.ToDate != null)
+        {
+            <div class="alert alert-warning mt-4">No data found for the selected date range.</div>
+        }
+    </div>
+</div>

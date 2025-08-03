@@ -1,0 +1,154 @@
+﻿@model MASERP.Models.DATAMODEL.Salary
+@{
+    ViewBag.Title = "Add Salary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<h2 class="text-center mb-4">💼 Add New Salary</h2>
+
+<div class="card shadow-lg p-4 rounded-4 bg-light">
+    @using (Html.BeginForm("Edit", "Salary", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.SalaryId)
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">👤 Employee</label>
+                @Html.DropDownList("EmployeeId", new SelectList(ViewBag.EmployeeList, "EmployeeId", "Name", Model.EmployeeId), "-- Select Employee --", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.SalaryMonth, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.SalaryMonth, new { @class = "form-control", placeholder = "2025-05", @required = "required" })
+                @Html.ValidationMessageFor(m => m.SalaryMonth, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.PayDate, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.PayDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", @required = "required" })
+                @Html.ValidationMessageFor(m => m.PayDate, "", new { @class = "text-danger" })
+            </div>
+
+            <hr />
+
+            <!-- Earnings -->
+            <h5 class="text-success mt-4">Earnings</h5>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Basic, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.Basic, new { @class = "form-control", id = "Basic", placeholder = "৳ Basic", @required = "required" })
+                @Html.ValidationMessageFor(m => m.Basic, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.HouseRent, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.HouseRent, new { @class = "form-control", id = "HouseRent", placeholder = "৳ House Rent", @readonly = "readonly" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Medical, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.Medical, new { @class = "form-control", id = "Medical", placeholder = "৳ Medical", @readonly = "readonly" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.TransportAllowance, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.TransportAllowance, new { @class = "form-control", id = "TransportAllowance", placeholder = "৳ Transport" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.FoodAllowance, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.FoodAllowance, new { @class = "form-control", id = "FoodAllowance", placeholder = "৳ Food" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Bonus, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.Bonus, new { @class = "form-control", id = "Bonus", placeholder = "৳ Bonus" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.OvertimeAmount, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.OvertimeAmount, new { @class = "form-control", id = "OvertimeAmount", placeholder = "৳ Overtime" })
+            </div>
+
+            <!-- Deductions -->
+            <h5 class="text-danger mt-4">Deductions</h5>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.Tax, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.Tax, new { @class = "form-control", id = "Tax", placeholder = "৳ Tax" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.ProvidentFund, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.ProvidentFund, new { @class = "form-control", id = "ProvidentFund", placeholder = "৳ PF", @readonly = "readonly" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.LoanDeduction, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.LoanDeduction, new { @class = "form-control", id = "LoanDeduction", placeholder = "৳ Loan" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.AdvanceDeduction, new { @class = "form-label fw-bold" })
+                @Html.TextBoxFor(m => m.AdvanceDeduction, new { @class = "form-control", id = "AdvanceDeduction", placeholder = "৳ Advance" })
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label fw-bold">Net Salary</label>
+                <input type="text" id="NetSalary" class="form-control bg-white" readonly />
+            </div>
+
+            <div class="col-md-12">
+                @Html.LabelFor(m => m.Remarks, new { @class = "form-label fw-bold" })
+                @Html.TextAreaFor(m => m.Remarks, 3, 100, new { @class = "form-control", placeholder = "Optional remarks" })
+            </div>
+        </div>
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary btn-lg px-4 rounded-pill">💾 Update</button>
+            <a href="@Url.Action("Index", "Salary")" class="btn btn-secondary btn-lg ms-2 rounded-pill">↩️ Back</a>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        function toDecimal(val) {
+            return isNaN(parseFloat(val)) ? 0 : parseFloat(val);
+        }
+
+        function calculateSalary() {
+            let basic = toDecimal($("#Basic").val());
+
+            let houseRent = basic * 0.5;
+            let medical = basic * 0.3;
+            let pf = basic * 0.1;
+
+            $("#HouseRent").val(houseRent.toFixed(2));
+            $("#Medical").val(medical.toFixed(2));
+            $("#ProvidentFund").val(pf.toFixed(2));
+
+            let earnings = basic + houseRent + medical
+                + toDecimal($("#TransportAllowance").val())
+                + toDecimal($("#FoodAllowance").val())
+                + toDecimal($("#Bonus").val())
+                + toDecimal($("#OvertimeAmount").val());
+
+            let deductions = pf
+                + toDecimal($("#Tax").val())
+                + toDecimal($("#LoanDeduction").val())
+                + toDecimal($("#AdvanceDeduction").val());
+
+            let netSalary = earnings - deductions;
+            $("#NetSalary").val(netSalary.toFixed(2));
+        }
+
+        $(document).ready(function () {
+            $("#Basic").on("input", calculateSalary);
+            $("#TransportAllowance, #FoodAllowance, #Bonus, #OvertimeAmount, #Tax, #LoanDeduction, #AdvanceDeduction")
+                .on("input", calculateSalary);
+        });
+    </script>
+}

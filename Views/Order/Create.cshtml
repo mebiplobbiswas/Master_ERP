@@ -1,0 +1,79 @@
+﻿@model MASERP.Models.DATAMODEL.Order
+@{
+    ViewBag.Title = "Create Order";
+}
+
+
+<div class="header bg-primary-grey pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0"> Buyer</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="@Url.Content("~/Home/Index")"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Content("~/Order/Index")">Order</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="@Url.Content("~/Order/Index")" class="btn btn-md btn-default">List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container col-md-6 mt--6">
+    <div class="row justify-content-center">
+        <div class=" col ">
+            <div class="card">
+                <div class="card-header bg-transparent">
+                    <h3 class="mb-0">Add New Orders</h3>
+                </div>
+                <div class="card-body">
+                    <div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.OrderNo)
+                                @Html.TextBoxFor(model => model.OrderNo, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.OrderNo, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.BuyerId, "Buyer")
+                                @Html.DropDownList("BuyerId", null, "-- Select Buyer --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BuyerId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.OrderDate)
+                                @Html.TextBoxFor(model => model.OrderDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+
+
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary ms-2" })
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

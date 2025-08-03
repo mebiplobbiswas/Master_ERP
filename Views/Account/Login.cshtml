@@ -1,0 +1,108 @@
+﻿@using MASERP.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+<style>
+    label {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    nav {
+        visibility: hidden;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+    }
+</style>
+
+
+<div class="header  pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container col-md-5 mt--6" style="padding-top:8%">
+    <div class="row justify-content-center">
+        <div class=" col ">
+            <div class="card">
+                <div class="card-header bg-transparent text-center">
+                   
+                    <img src="~/Content/img/LogoErp.png" class="img-responsive" style="height:60px; float:left" />
+                    @*<img src="~/Content/img/eprlogo2.png" class="img-responsive" style="height:60px; float:left" />*@
+                </div>
+
+                <div class="card-body">
+
+
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-md-12 px-md-4">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Email" name="Email" type="email" placeholder="Email Address" value="">
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 px-md-4">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="form-control" data-val="true" data-val-required="The Password field is required." id="Password" placeholder="Password" name="Password" type="password">
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+
+                        <div class="card-footer" style="text-align:center">
+                            <button type="submit" class="btn btn-block btn-default"><i class="fa fa-user-circle"></i> &nbsp;LOGIN</button>
+                        </div>
+
+                        @*<p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>*@
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .sidebar, .navbar {
+        display: none;
+    }
+</style>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

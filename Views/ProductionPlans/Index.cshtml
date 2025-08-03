@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.ProductionPlan>
+@{
+    ViewBag.Title = "Production Plans";
+    ViewBag.page = "production";
+}
+
+<h2>Production Plans</h2>
+<p>
+    @Html.ActionLink("Create New Plan", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PlanName)</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Remarks</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PlanName</td>
+                <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.Remarks</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductionPlanId }, new { @class = "btn btn-sm btn-warning" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductionPlanId }, new { @class = "btn btn-sm btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductionPlanId }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.PlanName</td>
+        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+        <td>
+            @Html.ActionLink("Proceed to Work Orders", "Create", "WorkOrders", new { planId = item.ProductionPlanId }, new { @class = "btn btn-sm btn-primary" })
+        </td>
+    </tr>
+}

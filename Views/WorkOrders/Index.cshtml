@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.WorkOrder>
+@{
+    ViewBag.Title = "Work Orders";
+    ViewBag.page = "production";
+}
+
+<!-- Font Awesome -->
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="mb-0 text-primary font-weight-bold">📋 Work Orders</h2>
+    <a href="@Url.Action("Create")" class="btn btn-success shadow-sm">
+        <i class="fas fa-plus-circle"></i> New Work Order
+    </a>
+</div>
+
+<!-- Search Form -->
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control shadow-sm" placeholder="Search by WorkOrder No, Plan or Item" value="@Request.QueryString["searchTerm"]" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
+<!-- Table -->
+<table class="table table-hover table-bordered shadow-sm">
+    <thead style="background-color: #007B9E; color: white;">
+        <tr class="text-center">
+            <th>WorkOrder No</th>
+            <th>Plan</th>
+            <th>Issue Date</th>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Remarks</th>
+            <th>Status</th>
+            <th style="width: 180px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.WorkOrderNo</td>
+                    <td>@item.ProductionPlan.PlanName</td>
+                    <td>@item.IssueDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Remarks</td>
+                    <td>@item.Status</td>
+                    <td class="text-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.WorkOrderId }, new { @class = "btn btn-sm btn-warning mr-1" })
+                        @Html.ActionLink("Details", "Details", new { id = item.WorkOrderId }, new { @class = "btn btn-sm btn-info mr-1" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.WorkOrderId }, new { @class = "btn btn-sm btn-danger" })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center text-muted">No work orders found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+        <li class="page-item disabled">
+            <a class="page-link rounded-circle px-3" href="#" tabindex="-1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link rounded-circle px-3" href="#">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link rounded-circle px-3" href="#">2</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link rounded-circle px-3" href="#">3</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link rounded-circle px-3" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

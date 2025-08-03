@@ -1,0 +1,78 @@
+﻿@model MASERP.Models.DATAMODEL.FiscalYear
+
+@{
+    ViewBag.Title = "Create Fiscal Year";
+}
+<h2 class="mb-4 text-success font-weight-bold border-bottom pb-2 text-center">
+    ➕ Create Fiscal Year
+</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.YearName, "Year Name", htmlAttributes: new { @class = "col-sm-2 col-form-label font-weight-bold" })
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.YearName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.YearName)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "col-sm-2 col-form-label font-weight-bold" })
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.StartDate)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "col-sm-2 col-form-label font-weight-bold" })
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                </div>
+            </div>
+
+            <div class="form-group row">              
+                <label class="col-sm-2 col-form-label font-weight-bold">Active</label>
+                <div class="col-sm-5 d-flex align-items-center">
+                    <div class="form-check mb-0">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input", id = "IsActive" })
+                        <label class="form-check-label ml-2" for="IsActive">
+                            @Html.DisplayNameFor(m => m.IsActive)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label font-weight-bold">Closed</label>
+                <div class="col-sm-5 d-flex align-items-center">
+                    <div class="form-check mb-0">
+                        @Html.CheckBoxFor(m => m.IsClosed, new { @class = "form-check-input", id = "IsClosed" })
+                        <label class="form-check-label ml-2" for="IsClosed">
+                            @Html.DisplayNameFor(m => m.IsClosed)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="card-footer text-left">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Save
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary ml-2">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>    
+
+}

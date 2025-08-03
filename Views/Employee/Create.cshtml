@@ -1,0 +1,369 @@
+﻿@model MASERP.Models.DATAMODEL.Employee
+
+@using System.Web.Mvc  <!-- Add this at the very top -->
+
+@{
+    ViewBag.Title = "Add New Employee";
+    ViewBag.page = "supplier";
+
+    var workShiftingOptions = new List<SelectListItem> {
+        new SelectListItem { Text = "Morning", Value = "Morning" },
+        new SelectListItem { Text = "Night", Value = "Night" },
+        new SelectListItem { Text = "General", Value = "General" }
+    };
+    var employmentTypeOptions = new List<SelectListItem> {
+        new SelectListItem { Text = "Permanent", Value = "Permanent" },
+        new SelectListItem { Text = "Contract", Value = "Contract" },
+        new SelectListItem { Text = "Intern", Value = "Intern" }
+    };
+    var departmentOptions = new List<SelectListItem> {
+        new SelectListItem { Text = "HR", Value = "HR" },
+        new SelectListItem { Text = "Finance", Value = "Finance" },
+        new SelectListItem { Text = "IT", Value = "IT" },
+        new SelectListItem { Text = "Sales", Value = "Sales" },
+        new SelectListItem { Text = "Admin", Value = "Admin" }
+    };
+    var maritalStatusOptions = new List<SelectListItem> {
+        new SelectListItem { Text = "Single", Value = "Single" },
+        new SelectListItem { Text = "Married", Value = "Married" },
+        new SelectListItem { Text = "Divorced", Value = "Divorced" }
+    };
+    var isActiveOptions = new List<SelectListItem> {
+        new SelectListItem { Text = "Active", Value = "true" },
+        new SelectListItem { Text = "Inactive", Value = "false" }
+    };
+}
+
+
+
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow-sm p-4 rounded">
+
+        <div class="row gx-5 align-items-start">
+
+            <!-- Left side: Inputs -->
+            <div class="col-lg-8">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Name, "Full Name", new { @class = "form-label fw-semibold" }) <span class="text-danger">*</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Full Name", required = "required" })
+                        <div class="invalid-feedback">Full Name is required.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Designation)
+                        @Html.DropDownList("Designation", (SelectList)ViewBag.DesignationList, "Select Designation", new { @class = "form-control", required = "required" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.EmployeeCode, new { @class = "form-label fw-semibold" }) <span class="text-danger">*</span>
+                        @Html.TextBoxFor(m => m.EmployeeCode, new { @class = "form-control", placeholder = "Employee Code", required = "required" })
+                        <div class="invalid-feedback">Employee Code is required.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.JoiningDate, new { @class = "form-label fw-semibold" }) <span class="text-danger">*</span>
+                        @Html.TextBoxFor(m => m.JoiningDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+                        <div class="invalid-feedback">Joining Date is required.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Gender, new { @class = "form-label fw-semibold" }) <span class="text-danger">*</span>
+                        @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female", "Other" }), "Select Gender", new { @class = "form-control", required = "required" })
+                        <div class="invalid-feedback">Please select gender.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.BloodGroup, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.BloodGroup, new SelectList(new[] { "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-" }), "Select Blood Group", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.NationalId, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.NationalId, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.MaritalStatus, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.MaritalStatus, maritalStatusOptions, "Select Marital Status", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.ContactNumber, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control", type = "tel" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.EmergencyContact, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.EmergencyContact, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.PresentAddress, new { @class = "form-label fw-semibold" })
+                        @Html.TextAreaFor(m => m.PresentAddress, 3, 50, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.PermanentAddress, new { @class = "form-label fw-semibold" })
+                        @Html.TextAreaFor(m => m.PermanentAddress, 3, 50, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.WorkShifting, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.WorkShifting, workShiftingOptions, "Select Work Shifting", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.EmploymentType, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.EmploymentType, employmentTypeOptions, "Select Employment Type", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Department, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.Department, departmentOptions, "Select Department", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Supervisor, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.Supervisor, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-center mt-3">
+                        @Html.LabelFor(m => m.IsActive, new { @class = "form-label fw-semibold me-3" })
+                        @Html.DropDownListFor(m => m.IsActive, isActiveOptions, new { @class = "form-control w-auto" })
+                    </div>
+
+                </div> <!-- /row g-3 -->
+                <!-- Education Section -->
+
+                <h5 class="mb-3 text-secondary">Educational Qualifications</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle" id="educationTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Degree</th>
+                                <th>Institute</th>
+                                <th>Passing Year</th>
+                                <th>Result</th>
+                                <th style="width: 90px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eduBody">
+                            <tr>
+                                <td>
+                                    <select name="Educations[0].Degree" class="form-control form-select-sm">
+                                        <option value="">Select Degree</option>
+                                        @foreach (var degree in (SelectList)ViewBag.DegreeList)
+                                        {
+                                            <option value="@degree.Text">@degree.Text</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td><input type="text" name="Educations[0].Institute" class="form-control form-control-sm" /></td>
+                                <td><input type="number" name="Educations[0].PassingYear" class="form-control form-control-sm" /></td>
+                                <td><input type="text" name="Educations[0].Result" class="form-control form-control-sm" /></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-danger removeRow" title="Remove Row">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button type="button" id="addRow" class="btn btn-sm btn-info mb-3">
+                    <i class="bi bi-plus-circle"></i> Add Row
+                </button>
+
+                <!--<div class="mt-5">
+                    <h5 class="mb-3 text-secondary">Education Background</h5>
+
+                    <div id="educationContainer">-->
+                <!-- Education rows will go here dynamically -->
+                <!-- Example initial row (optional) -->
+                <!--</div>
+
+                    <button type="button" id="addEducationBtn" class="btn btn-sm btn-outline-primary mt-2">Add Education</button>
+                </div>-->
+
+            </div>
+
+            <!-- Right side: Image Upload and preview -->
+            <div class="col-lg-4 text-center">
+                <label for="ImageFile" class="form-label fw-semibold">Employee Photo</label>
+                <input type="file" id="ImageFile" name="ImageFile" class="form-control mb-3" onchange="previewImage(this)" accept="image/*" />
+                <img id="imgPreview" src="~/images/placeholder.png" alt="Image Preview" class="img-thumbnail rounded shadow-sm" style="max-width: 100%; height: auto;" />
+            </div>
+        </div> <!-- /row -->
+
+        <div class="mt-4 d-flex justify-content-end gap-2">
+            <button type="submit" class="btn btn-sm btn-primary px-4">Save</button>
+            <button type="reset" class="btn btn-sm btn-secondary px-4">Reset</button>
+        </div>
+    </div> <!-- /card -->
+}
+@section Scripts {
+    <script>
+        (() => {
+            'use strict';
+
+            const forms = document.querySelectorAll('.needs-validation');
+
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = document.getElementById('imgPreview');
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        let rowIndex = 1;
+        $('#addRow').click(function () {
+            let row = `<tr>
+                <td>
+                    <select name="Educations[${rowIndex}].Degree" class="form-select form-select-sm">
+                        <option value="">Select Degree</option>
+                        @foreach (var degree in (SelectList)ViewBag.DegreeList)
+                        {
+                            <text><option value="@degree.Text">@degree.Text</option></text>
+                        }
+                    </select>
+                </td>
+                <td><input type="text" name="Educations[${rowIndex}].Institute" class="form-control form-control-sm" /></td>
+                <td><input type="number" name="Educations[${rowIndex}].PassingYear" class="form-control form-control-sm" /></td>
+                <td><input type="text" name="Educations[${rowIndex}].Result" class="form-control form-control-sm" /></td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-danger removeRow" title="Remove Row">
+                        <i class="bi bi-trash"></i> Remove
+                    </button>
+                </td>
+            </tr>`;
+            $('#eduBody').append(row);
+            rowIndex++;
+        });
+
+        $('#educationTable').on('click', '.removeRow', function () {
+            $(this).closest('tr').remove();
+        });
+    </script>
+}
+
+
+@*@section Scripts {
+        <script>
+            // Bootstrap 5 client-side validation
+            (() => {
+                'use strict';
+
+                const forms = document.querySelectorAll('.needs-validation');
+
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            })();
+
+            // Image preview function
+            function previewImage(input) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        document.getElementById('imgPreview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            // Education rows container
+            const educationContainer = document.getElementById('educationContainer');
+            const addEducationBtn = document.getElementById('addEducationBtn');
+
+            // Template for a new Education row (basic example)
+            function createEducationRow() {
+                const index = educationContainer.children.length;
+                const row = document.createElement('div');
+                row.className = 'card mb-3 p-3 shadow-sm';
+
+                row.innerHTML = `
+                                        <div class="row g-3 align-items-center">
+                                            <div class="col-md-5">
+                                                <label class="form-label fw-semibold" for="Educations_${index}__Degree">Degree <span class="text-danger">*</span></label>
+                                                <input type="text" name="Educations[${index}].Degree" id="Educations_${index}__Degree" class="form-control" required />
+                                                <div class="invalid-feedback">Degree is required.</div>
+                                            </div
+                                                            <div class="col-md-5">
+                                        <label class="form-label fw-semibold" for="Educations_${index}__Institution">Institution <span class="text-danger">*</span></label>
+                                        <input type="text" name="Educations[${index}].Institution" id="Educations_${index}__Institution" class="form-control" required />
+                                        <div class="invalid-feedback">Institution is required.</div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center mt-4">
+                                        <button type="button" class="btn btn-sm btn-danger w-100 removeEducationBtn">Remove</button>
+                                    </div>
+                                </div>
+                            `;
+
+                // Add remove button event
+                row.querySelector('.removeEducationBtn').addEventListener('click', () => {
+                    row.remove();
+                    reindexEducationRows();
+                });
+
+                return row;
+            }
+
+            // Re-index education rows for proper model binding on postback
+            function reindexEducationRows() {
+                const rows = educationContainer.children;
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].querySelectorAll('input').forEach(input => {
+                        const nameParts = input.name.split('.');
+                        nameParts[0] = `Educations[${i}]`;
+                        input.name = nameParts.join('.');
+                        input.id = input.name.replace(/\./g, '_');
+                    });
+                }
+            }
+
+            // Add education button event
+            addEducationBtn.addEventListener('click', () => {
+                const newRow = createEducationRow();
+                educationContainer.appendChild(newRow);
+            });
+        </script>
+    }*@

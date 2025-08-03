@@ -1,0 +1,815 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/argon/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/Content/argon/img/favicon.png">
+    <title>
+        Purba CRM &amp; Inventory
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800h" rel="stylesheet" />
+ 
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- Nucleo Icons -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+
+    
+</head>
+
+<body class="white-content" style="padding-top:0px;font-family:sans-serif">
+
+<div class="wrapper" style="overflow-x:hidden"  >
+        <div class="sidebar no-print"  style=" background: #1d253b;background: -webkit-linear-gradient(0deg, #1d253b 0%, #344675 100%);background: -o-linear-gradient(0deg, #1d253b 0%, #344675 100%);background: -moz-linear-gradient(0deg, #1d253b 0%, #344675 100%);background: linear-gradient(0deg, #1d253b 0%, #4169e1 100%);"  >
+           
+            <div class="sidebar-wrapper"  >
+                
+                <ul class="nav">
+                    <li>
+                        <a href="@Url.Content("~/home")">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a data-toggle="collapse" href="#componentsExamples" aria-expanded="false">
+
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            <p>
+                                Categories
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse" id="componentsExamples" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+                                <li>
+                                    <a href="@Url.Content("~/Categories")" style="font-size:14px">
+                                        <i class="fa fa-list-ol" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Main Categories</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/SubCategories")" style="font-size:14px">
+                                        <i class="fa fa-list-ul" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Sub Categories</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Content("~/Products")">
+                            <i class="tim-icons icon-app"></i>
+                            <p>Products</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Content("~/Providers")">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <p>Providers </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Content("~/Customers")">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <p>Customers</p>
+                        </a>
+                    </li>
+
+
+
+                    <li class="hideSm">
+                        <a data-toggle="collapse" href="#componentPurchase" aria-expanded="false">
+
+                            <i class="fa fa-download"></i>
+                            <p>Collection   <b class="caret"></b></p>
+                        </a>
+
+                        <div class="collapse" id="componentPurchase" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+
+                                <li>
+                                    <a href="@Url.Content("~/Purchases/create")">
+                                        <i class="tim-icons icon-bag-16" aria-hidden="true"></i>
+                                        <p>Product Purchase  </p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/purchases/milkproductcollection")">
+                                        <i class="tim-icons icon-delivery-fast" aria-hidden="true"></i>
+                                        <p>Milk Collection</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/Purchases")">
+                                        <i class="tim-icons icon-single-copy-04" aria-hidden="true"></i>
+                                        <p>Records</p>
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
+                    <li class="hideSm">
+                        <a data-toggle="collapse" href="#sales" aria-expanded="false">
+
+                            <i class="tim-icons icon-cart"></i>
+                            <p>Sales   <b class="caret"></b></p>
+                        </a>
+
+                        <div class="collapse" id="sales" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+
+                                <li>
+                                    <a href="@Url.Content("~/sales/create")">
+                                        <i class="tim-icons icon-bag-16" aria-hidden="true"></i>
+                                        <p>New Sale  </p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/sales")">
+                                        <i  class="tim-icons icon-paper" aria-hidden="true"></i>
+                                        <p>Sales Records</p>
+                                    </a>
+                                </li>
+ 
+
+
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                    @*<li>
+            <a href="@Url.Content("~/UseProductsInProject")"  >
+                <i class="tim-icons icon-notes"></i>
+                <p> Use Stock</p>
+            </a>
+        </li>*@
+                     
+                    <li>
+                        <a href="@Url.Content("~/dataentries")">
+                            <i class="tim-icons icon-money-coins"></i>
+                            <p> Data Entry</p>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a href="@Url.Content("~/Stocks")">
+                            <i class="tim-icons icon-molecule-40"></i>
+                            <p>Stock</p>
+                        </a>
+                    </li>
+
+
+                    <li class="hideSm">
+                        <a data-toggle="collapse" href="#componentCow" aria-expanded="false">
+
+                            <i class="fa fa-paw" aria-hidden="true"></i>
+                            <p>Cows Section    <b class="caret"></b></p>
+                        </a>
+
+                        <div class="collapse" id="componentCow" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+
+                                <li>
+                                    <a href="@Url.Content("~/cows")">
+                                        <i class="fa fa-paw" aria-hidden="true"></i>
+                                        <p>Cows List    </p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/MilkCollection")">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        <p>Milk Production</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/CowMilkCollection")">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                        <p>Milk Coll. Report</p>
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+                    <li>
+                        <a data-toggle="collapse" href="#account" aria-expanded="false">
+
+                            <i class="tim-icons icon-paper"></i>
+                            <p>
+                                Reports
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse" id="account" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+                                @*<li  >
+                        <a href="@Url.Content("~/report/DueAndPaids")" style="font-size:14px">
+                            <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                            <p>Dues And Paids</p>
+                        </a>
+                    </li>*@
+                                <li>
+                                    <a href="@Url.Content("~/report/receipt_payments")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Receipts &amp; Payments</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/report/purchase")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Collection Report</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/report/purchase2")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Purchase Report</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/report/sales")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Sales Report</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/report/SalesByProduct")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Sales   By Product</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/report/ProductsStock")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Products Stock</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/report/CustomerSale")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Customer Sales  </p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/report/ProviderPurchase")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Provider Purchases  </p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/report/ProjectWisePurchase")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Projectwise Stats</p>
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a href="@Url.Content("~/report/ledger")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Ledger</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/Journals")" style="font-size:14px">
+                                        <i class="tim-icons icon-paper" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Journals</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="hideSm">
+                        <a data-toggle="collapse" href="#componentsExamples2" aria-expanded="false">
+
+                            <i class="tim-icons icon-settings-gear-63"></i>
+                            <p>
+                                Others
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse" id="componentsExamples2" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+
+                                <li>
+                                    <a href="@Url.Content("~/Branches")">
+                                        <i class="fa fa-university" aria-hidden="true"></i>
+                                        <p>Branches</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/Godowns")">
+                                        <i class="fa fa-building" aria-hidden="true"></i>
+                                        <p>Store/Godown</p>
+                                    </a>
+                                </li>
+
+
+
+
+                                <li>
+                                    <a href="@Url.Content("~/Projects")">
+                                        <i class="tim-icons icon-spaceship"></i>
+                                        <p>Projects</p>
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a href="@Url.Content("~/Units")">
+                                        <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
+                                        <p>Units</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                    <li class="hideSm">
+                        <a data-toggle="collapse" href="#account2" aria-expanded="false">
+
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>
+                            <p>
+                                Account
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse" id="account2" style="font-size: 14px; height: 0px;" aria-expanded="false">
+                            <ul class="nav">
+                                <li>
+                                    <a href="@Url.Content("~/AccountHeads")" style="font-size:14px">
+                                        <i class="fa fa-sitemap" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Heads</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Content("~/AccountSubHeads")" style="font-size:14px">
+                                        <i class="fa fa-sitemap" aria-hidden="true" style="padding-top:5px"></i>
+                                        <p>Sub Heads</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel" data="green">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute " style="position:fixed;background-color:#4169e1">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle d-inline">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="javascript:void(0)">    <a href="@Url.Content("~/home")"> <img src="~/Content/img/logo-2.png" style="width:180px" /></a>  </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="search-bar input-group">
+                                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal">
+                                    <i class="tim-icons icon-zoom-split"></i>
+                                    <span class="d-lg-none d-md-block">Search</span>
+                                </button>
+                            </li>
+
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <div class="photo">
+                                        <img src="~/Content/img/anime3.png" alt="Profile Photo">
+                                    </div>
+                                    <b class="caret d-none d-lg-block d-xl-block"></b>
+                                    <p class="d-lg-none">
+                                        Log out
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-navbar">
+
+
+                                    @Html.Partial("_LoginPartial")
+
+
+
+                                </ul>
+                            </li>
+                            <li class="separator d-lg-none"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Navbar -->
+            <div class="content">
+                @RenderBody()
+            </div>
+            <footer class="footer" style="background-color:white">
+                <div class="container-fluid">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <img src="~/Content/img/logo-1.png" class="img-responsive" style="max-width:150px" />
+                        </li>
+
+
+                    </ul>
+                    <div class="copyright" style="font-size:20px;font-weight:bold">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> All Right Reserved  | Developed by
+                        <a href="javascript:void(0)" target="_blank">DMCBL IT Dept</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="fixed-plugin" style="top:200px;display:none"  >
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Background</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger background-color">
+                        <div class="badge-colors text-center">
+                            <span class="badge filter badge-primary " data-color="primary"></span>
+                            <span class="badge filter badge-info " data-color="blue"></span>
+                            <span class="badge filter badge-success active" data-color="green"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="adjustments-line text-center color-change">
+                    <span class="color-label">LIGHT MODE</span>
+                    <span class="badge light-badge mr-2"></span>
+                    <span class="badge dark-badge ml-2"></span>
+                    <span class="color-label">DARK MODE</span>
+                </li>
+                 
+            </ul>
+        </div>
+    </div>
+
+    
+
+    <!--   Core JS Files   -->
+    <style>
+      @@media print
+        {
+             .no-print, .no-print *,printHide
+             {
+                 display: none !important;
+             }
+        }
+
+        .select2-container .select2-choice
+        {
+            height:30px;
+        }
+
+        .form-control {
+            font-size: 16px;
+            padding: 0px 18px 0px 18px;
+        }
+
+        .control-label
+        {
+            font-weight:bold;
+        }
+        .sidebar .nav li > a 
+        {
+            padding:0;
+            margin:0;
+            margin-left:15px;
+            font-size:15px;
+            
+        }
+
+        .sidebar .nav li > a > p
+        {
+            font-weight:bold;
+        }
+
+
+        .th_bg{
+            background-color:#e9ecef;
+        }
+
+        .hide{
+            display:none;
+        }
+        
+
+            @@media (max-width: 900px)
+            { 
+
+                .center{
+                    text-align:center;
+                    font-size:14px;
+                       }
+
+                h1{
+                    font-size:25px;
+                }
+
+                .hideSm{
+                    display:none;
+                }
+
+                .table
+                {
+                    font-size:12px
+
+                }
+
+                .hide
+                {
+                    display:block;
+                }
+             }
+
+                @@media (max-width: 900px) { 
+
+
+      footer
+        {
+          display:none;
+        }
+    }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .sidebar .nav li > a:hover {
+            border-left: 4px solid;
+            border-radius: 0;
+            color: #99cbfb;
+        }
+
+
+                .wrapper
+                {
+                    height:100%;
+                }
+
+
+        .select2-container--default .select2-selection--single {
+            background-color: #ffffff;
+            border-color: #d8dbde;
+            
+            -moz-box-shadow: inset 0px 1px 9px -5px rgba(0,0,0,0.75);
+          
+            -webkit-box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+            box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+
+            font-weight: bold;
+            border-radius: 4px;
+            padding-top: 4px;
+        }
+
+        .white-content .form-control {
+            background-color: #ffffff;
+            border: 1px solid #d8dbde;
+          
+            -moz-box-shadow: inset 0px 1px 9px -5px rgba(0,0,0,0.75);
+            
+            -webkit-box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+            box-shadow: inset 0px 1px 9px -7px rgba(0,0,0,0.75);
+        }
+
+            .white-content .form-control[disabled],
+            .white-content .form-control[readonly],
+            .white-content fieldset[disabled] .form-control {
+                background: #f7f7f7;
+                border-color: rgba(29, 37, 59, 0.3);
+            }
+
+
+
+        .sidebar .nav li > a + div .nav li > a, .off-canvas-sidebar .nav li > a + div .nav li > a
+        {
+            padding:0;
+            margin-left:30px;
+        }
+
+    </style>
+
+    @RenderSection("scripts", required: false)
+   
+
+
+    <script>
+        $(document).ready(function () {
+            $().ready(function () {
+                $sidebar = $('.sidebar');
+                $navbar = $('.navbar');
+                $main_panel = $('.main-panel');
+
+                $full_page = $('.full-page');
+
+                $sidebar_responsive = $('body > .navbar-collapse');
+                sidebar_mini_active = true;
+                white_color = false;
+
+                window_width = $(window).width();
+
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+
+
+                $('.fixed-plugin a').click(function (event) {
+                    if ($(this).hasClass('switch-trigger')) {
+                        if (event.stopPropagation) {
+                            event.stopPropagation();
+                        } else if (window.event) {
+                            window.event.cancelBubble = true;
+                        }
+                    }
+                });
+
+                $('.fixed-plugin .background-color span').click(function () {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+
+                    var new_color = $(this).data('color');
+
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data', new_color);
+                    }
+
+                    if ($main_panel.length != 0) {
+                        $main_panel.attr('data', new_color);
+                    }
+
+                    if ($full_page.length != 0) {
+                        $full_page.attr('filter-color', new_color);
+                    }
+
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.attr('data', new_color);
+                    }
+                });
+
+                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
+                    var $btn = $(this);
+
+                    if (sidebar_mini_active == true) {
+                        $('body').removeClass('sidebar-mini');
+                        sidebar_mini_active = false;
+                        blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                    } else {
+                        $('body').addClass('sidebar-mini');
+                        sidebar_mini_active = true;
+                        blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                    }
+
+                    // we simulate the window Resize so the charts will get updated in realtime.
+                    var simulateWindowResize = setInterval(function () {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 180);
+
+                    // we stop the simulation of Window Resize after the animations are completed
+                    setTimeout(function () {
+                        clearInterval(simulateWindowResize);
+                    }, 1000);
+                });
+
+                $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
+                    var $btn = $(this);
+
+                    if (white_color == true) {
+
+                        $('body').addClass('change-background');
+                        setTimeout(function () {
+                            $('body').removeClass('change-background');
+                            $('body').removeClass('white-content');
+                        }, 900);
+                        white_color = false;
+                    } else {
+
+                        $('body').addClass('change-background');
+                        setTimeout(function () {
+                            $('body').removeClass('change-background');
+                            $('body').addClass('white-content');
+                        }, 900);
+
+                        white_color = true;
+                    }
+
+
+                });
+
+                $('.light-badge').click(function () {
+                    $('body').addClass('white-content');
+                });
+
+                $('.dark-badge').click(function () {
+                    $('body').removeClass('white-content');
+                });
+            });
+        });
+
+
+   
+
+
+ 
+
+
+    </script>
+  
+</body>
+
+</html>

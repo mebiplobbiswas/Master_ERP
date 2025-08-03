@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.Attendance>
+@{
+    ViewBag.Title = "Attendance Records";
+    ViewBag.page = "supplier";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            Attendance Records
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Employee Code</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Employee.EmployeeCode</td>
+                            <td>@item.Date.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (item.IsPresent)
+                                {
+                                    <span class="badge badge-success">Present</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Absent</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-sm">Add New Attendance</a>
+        </div>
+    </div>
+</div>

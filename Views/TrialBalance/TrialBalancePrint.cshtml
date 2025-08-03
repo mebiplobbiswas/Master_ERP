@@ -1,0 +1,80 @@
+﻿@model MASERP.Models.ViewModels.TrialBalanceVM
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Trial Balance PDF</title>
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: right;
+        }
+
+            th:first-child, td:first-child {
+                text-align: center;
+            }
+
+            th:nth-child(2), td:nth-child(2) {
+                text-align: left;
+            }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Trial Balance Report</h2>
+    <p>
+        <strong>From:</strong> @Model.FromDate.Value.ToString("dd MMM yyyy") &nbsp;&nbsp;
+        <strong>To:</strong> @Model.ToDate.Value.ToString("dd MMM yyyy")
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Account Head</th>
+                <th>Debit (৳)</th>
+                <th>Credit (৳)</th>
+                <th>Balance (৳)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model.AccountBalances)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.AccountHeadName</td>
+                        <td>@item.DebitTotal.ToString("N2")</td>
+                        <td>@item.CreditTotal.ToString("N2")</td>
+                        <td>@(item.Balance >= 0 ? "+" : "-") @Math.Abs(item.Balance).ToString("N2")</td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total</strong></td>
+                <td><strong>৳ @Model.AccountBalances.Sum(x => x.DebitTotal).ToString("N2")</strong></td>
+                <td><strong>৳ @Model.AccountBalances.Sum(x => x.CreditTotal).ToString("N2")</strong></td>
+                <td><strong>৳ @Model.AccountBalances.Sum(x => x.Balance).ToString("N2")</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@model MASERP.Models.DATAMODEL.ViewModel.BalanceSheetViewModel
+<h2>Balance Sheet</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4 class="text-primary">Assets</h4>
+        <table class="table table-bordered">
+            @foreach (var item in Model.Assets)
+            {
+                <tr><td>@item.HeadName</td><td>@item.Amount.ToString("N2")</td></tr>
+            }
+            <tr class="bg-light"><th>Total Assets</th><th>@Model.TotalAssets.ToString("N2")</th></tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4 class="text-danger">Liabilities & Equity</h4>
+        <table class="table table-bordered">
+            <tr><th colspan="2">Liabilities</th></tr>
+            @foreach (var item in Model.Liabilities)
+            {
+                <tr><td>@item.HeadName</td><td>@item.Amount.ToString("N2")</td></tr>
+            }
+            <tr class="bg-light"><th>Total Liabilities</th><th>@Model.TotalLiabilities.ToString("N2")</th></tr>
+
+            <tr><th colspan="2">Equity</th></tr>
+            @foreach (var item in Model.Equity)
+            {
+                <tr><td>@item.HeadName</td><td>@item.Amount.ToString("N2")</td></tr>
+            }
+            <tr class="bg-light"><th>Total Equity</th><th>@Model.TotalEquity.ToString("N2")</th></tr>
+        </table>
+    </div>
+</div>

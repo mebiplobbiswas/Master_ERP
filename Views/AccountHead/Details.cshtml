@@ -1,0 +1,22 @@
+﻿@model MASERP.Models.DATAMODEL.AccountHead
+@{
+    ViewBag.Title = "Account Head Details";
+    ViewBag.page = "sales";
+}
+
+<h3>Account Head Details</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Head Name</th>
+        <td>@Model.HeadName</td>
+    </tr>
+    <tr>
+        <th>Head Type</th>
+        <td>@Model.HeadType</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+</table>
+<a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>

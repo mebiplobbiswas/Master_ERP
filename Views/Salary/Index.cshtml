@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<MASERP.Models.DATAMODEL.Salary>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Salary List";
+    ViewBag.page = "customer";
+    string currentFilter = ViewBag.CurrentFilter as string;
+}
+
+<h2 class="text-center mb-4">📋 All Employee Salary Scale</h2>
+
+
+
+<div class="row mb-3">
+    <!-- Left side: Search -->
+    <div class="col-md-5">
+        @using (Html.BeginForm("Index", "Salary", FormMethod.Get))
+        {
+            <div class="input-group rounded-pill border shadow-sm overflow-hidden">
+                @Html.TextBox("searchString", currentFilter, new
+                {
+                    @class = "form-control border-0 rounded-start-pill",
+                    placeholder = "🔍 Search by Employee Name...",
+                    style = "box-shadow: none;"
+                })
+                <button class="btn btn-primary rounded-end-pill" type="submit">Search</button>
+            </div>
+        }
+    </div>
+
+    <!-- Right side: Add Button -->
+    <div class="col-md-7 text-end" style="text-align:right">
+        <a href="@Url.Action("Create", "Salary")" class="btn btn-success btn-lg px-4 rounded-pill">
+            ➕ Add Salary
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="card shadow-lg p-4 bg-light rounded-4">
+    <table class="table table-bordered table-hover table-striped shadow-sm bg-white rounded-4">
+        <thead class="bg-warning text-white text-center align-middle">
+            <tr>
+                <th>👤 Employee</th>
+                <th>📅 Month</th>
+                <th>💰 Total Earnings (৳)</th>
+                <th>💸 Deductions (৳)</th>
+                <th>🧮 Net Salary (৳)</th>
+                <th>📆 Pay Date</th>
+                <th>⚙️ Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="d-flex align-items-center gap-2 justify-content-center">
+                        <img src="@Url.Content(item.Employee.ImagePath ?? "~/Content/img/no-image.png")"
+                             alt="Employee Photo" width="40" height="40"
+                             class="rounded-circle border border-secondary" />
+                        <div>
+                            <strong>@item.Employee.Name</strong><br />
+                            <small class="text-muted">@item.Employee.Designation</small>
+                        </div>
+                    </td>
+                    <td>@item.SalaryMonth</td>
+                    <td>@item.TotalEarnings.ToString("N2")</td>
+                    <td>@item.TotalDeductions.ToString("N2")</td>
+                    <td class="fw-bold text-success">@item.NetSalary.ToString("N2")</td>
+                    <td>@item.PayDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @Html.ActionLink("✏️", "Edit", new { id = item.SalaryId }, new { @class = "btn btn-primary btn-sm me-1", title = "Edit" })
+                        @Html.ActionLink("🗑️", "Delete", new { id = item.SalaryId }, new { @class = "btn btn-danger btn-sm", title = "Delete", onclick = "return confirm('Are you sure to delete this salary?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*<div class="text-end mt-3">
+            <a href="@Url.Action("Create", "Salary")" class="btn btn-success btn-lg px-4 rounded-pill">
+                ➕ Add Salary
+            </a>
+        </div>*@
+
+    <div class="text-center mt-3">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentFilter }),
+            new PagedListRenderOptions()
+            {
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                DisplayPageCountAndCurrentLocation = false,
+                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                MaximumPageNumbersToDisplay = 5,
+                LinkToIndividualPageFormat = "{0}",
+                //ClassToApplyToLi = "page-item",
+                //ClassToApplyToActiveLi = "page-item active",
+                //ClassToApplyToPageLink = "page-link"
+            })
+    </div>
+
+
+
+
+</div>

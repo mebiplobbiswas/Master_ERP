@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.AccountHead>
+@{
+    ViewBag.Title = "Account Heads";
+    ViewBag.page = "sales";
+    var i = 1;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="mb-0 text-primary font-weight-bold">📒 Account Heads</h2>
+    <a href="@Url.Action("Create")" class="btn btn-success shadow-sm align-items-center">
+        <i class="fas fa-plus-circle"></i> New Head
+    </a>
+</div>
+
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search by name/type" value="@Request.QueryString["searchTerm"]" />
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Search</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Reset</a>
+</form>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead style="background-color: #005b96; color: white;">
+        <tr>
+            <th class="text-center">SN</th>
+            <th class="text-center">Head Name</th>
+            <th class="text-center">Head Type</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">@i</td>
+                <td class="text-center">@item.HeadName</td>
+                <td class="text-center">@item.HeadType</td>
+                <td class="text-center">@item.Description</td>
+                <td class="text-center">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AccountHeadId }, new { @class = "btn btn-sm btn-warning mr-1" })
+                    @Html.ActionLink("Details", "Details", new { id = item.AccountHeadId }, new { @class = "btn btn-sm btn-info mr-1" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AccountHeadId }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

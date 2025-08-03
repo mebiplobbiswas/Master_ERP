@@ -1,0 +1,36 @@
+﻿@model MASERP.Models.DATAMODEL.Voucher
+
+@{
+    ViewBag.Title = "Voucher Details";
+    ViewBag.page = "sales";
+}
+
+<h2 class="mb-4 text-info font-weight-bold border-bottom pb-2">
+    📄 @ViewBag.Title
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3 font-weight-bold text-right">Voucher No:</dt>
+            <dd class="col-sm-9">@Model.VoucherNo</dd>
+
+            <dt class="col-sm-3 font-weight-bold text-right">Voucher Type:</dt>
+            <dd class="col-sm-9">@Model.VoucherType</dd>
+
+            <dt class="col-sm-3 font-weight-bold text-right">Voucher Date:</dt>
+            <dd class="col-sm-9">@Model.VoucherDate.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-3 font-weight-bold text-right">Remarks:</dt>
+            <dd class="col-sm-9">@Model.Remarks</dd>
+        </dl>
+    </div>
+    <div class="card-footer text-left">
+        <a href="@Url.Action("Edit", new { id = Model.VoucherId })" class="btn btn-warning">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="@Url.Action("Index")" class="btn btn-secondary ml-2">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<MASERP.Models.DATAMODEL.WorkOrderMaterial>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Work Order Materials";
+    ViewBag.page = "production";
+    var i = 1;
+}
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="mb-0 text-primary font-weight-bold">📋 Work Order Materials</h2>
+    <a href="@Url.Action("Create")" class="btn btn-success shadow-sm">
+        <i class="fas fa-plus-circle"></i> New Work Order
+    </a>
+</div>
+<!-- Search form -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        @*<input type="text" name="searchTerm" class="form-control" placeholder="Search by Name, Unit or ID" value="@Request.QueryString["searchTerm"]" />*@
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search by Name, Unit or ID" value="@ViewBag.CurrentFilter" />
+
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Search</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Reset</a>
+</form>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead style="background-color: #005b96; color: white;">
+        <tr>
+            <th class="text-center">SN</th>
+            <th class="text-center">Material Name</th>
+            <th class="text-center">Required Qty</th>
+            <th class="text-center">Unit</th>
+            <th class="text-center">Work Order</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td class="text-center">@i</td>
+                    <td class="text-center">@item.MaterialName</td>
+                    <td class="text-center">@item.RequiredQuantity</td>
+                    <td class="text-center">@item.Unit</td>
+                    <td class="text-center">@item.WorkOrder.WorkOrderNo</td>
+                    <td class="text-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.WorkOrderMaterialId }, new { @class = "btn btn-sm btn-warning mr-1" })
+                        @Html.ActionLink("Details", "Details", new { id = item.WorkOrderMaterialId }, new { @class = "btn btn-sm btn-info mr-1" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.WorkOrderMaterialId }, new { @class = "btn btn-sm btn-danger" })
+                    </td>
+                </tr>
+                i++;
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center text-danger">No materials found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Pagination -->
+<div class="d-flex justify-content-end">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchTerm = ViewBag.CurrentFilter }),
+        new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+            DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+            DisplayLinkToLastPage = PagedListDisplayMode.Never,
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+         //   PageClasses = new[] { "page-link", "rounded-circle", "px-3" }
+        })
+</div>

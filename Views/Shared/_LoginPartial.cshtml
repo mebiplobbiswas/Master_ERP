@@ -1,0 +1,93 @@
+﻿@*@using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+        @Html.AntiForgeryToken()
+
+        <ul class="navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="nav-link" })
+            </li>
+            <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+        }
+    }
+    else
+    {
+        <ul class="navbar-nav navbar-right">
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="nav-link" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="nav-link" })</li>
+        </ul>
+    }*@
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <li class="nav-item dropdown">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="media align-items-center">
+                    <span class="">
+                        <i class="fa fa-user-circle" style="font-size:20px"></i>
+                    </span>
+                    <div class="media-body  ml-2  d-none d-lg-block">
+                        <span class="mb-0 text-sm  font-weight-bold text-uppercase font-weight-bold">@User.Identity.GetUserName()</span>
+                    </div>
+                </div>
+            </a>
+            <div class="dropdown-menu  dropdown-menu-right ">
+
+                <a href="@Url.Content("~/Manage")" class="dropdown-item">
+                    <i class="fa fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </li>
+
+
+    }
+}
+else
+{
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link pr-0" href="@Url.Content("~/Account/Register")" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+                <span class="">
+                    <span class="mb-0 text-sm  font-weight-bold text-uppercase font-weight-bold">@User.Identity.GetUserName()</span>
+                </span>
+                <div class="media-body  ml-2  d-none d-lg-block">
+                    <span class="mb-0 text-sm  font-weight-bold">Account </span>
+                </div>
+            </div>
+        </a>
+        <div class="dropdown-menu  dropdown-menu-right ">
+
+            <a href="@Url.Content("~/Account/register")" class="dropdown-item">
+                <i class="fa fa-plus-circle"></i>
+                <span>Support</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="@Url.Content("~/Account/login")" class="dropdown-item">
+                <i class="fa fa-user"></i>
+                <span>Login</span>
+            </a>
+        </div>
+    </li>
+
+
+}
+
+
+

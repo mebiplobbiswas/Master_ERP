@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MASERP.Models.DATAMODEL.Voucher>
+
+@{
+    ViewBag.Title = "Vouchers";
+    ViewBag.page = "sales";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2 ">
+    <h3 class="text-primary font-weight-bold">📁 Voucher List</h3>
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="fas fa-plus-circle"></i> New Voucher
+    </a>
+</div>
+
+<form method="get" class="form-inline mb-3">
+    <input type="text" name="searchTerm" class="form-control mr-2" placeholder="Search..." value="@Request.QueryString["searchTerm"]" />
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary ml-2">Reset</a>
+</form>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Voucher No</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Remarks</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.VoucherNo</td>
+                <td>@item.VoucherType</td>
+                <td>@item.VoucherDate.ToShortDateString()</td>
+                <td>@item.Remarks</td>
+                <td class="text-center">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.VoucherId }, new { @class = "btn btn-sm btn-warning mr-1" })
+                    @Html.ActionLink("Details", "Details", new { id = item.VoucherId }, new { @class = "btn btn-sm btn-info mr-1" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.VoucherId }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
